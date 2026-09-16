@@ -21,7 +21,7 @@ Or download the repo and use **Sketch → Include Library → Add .ZIP Library�
 
 ```cpp
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\#include <FlowSensor.h>
+\\\#include <FlowSensor.h>
 
 
 
@@ -35,13 +35,13 @@ void setup() { Serial.begin(9600); flow.begin(); }
 
 void loop() {
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#x20; if (flow.update()) {
+ if (flow.update()) {
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#x20;   Serial.print(flow.flow(),   2); Serial.print(" L/min  ");
+Serial.print(flow.flow(),   2); Serial.print(" L/min  ");
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#x20;   Serial.print(flow.volume(), 3); Serial.println(" L");
+Serial.print(flow.volume(), 3); Serial.println(" L");
 
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\&#x20; }
+}
 
 }
 
