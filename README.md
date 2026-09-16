@@ -1,5 +1,5 @@
 
-# FlowSensor
+# FlowSensorLib
 
 Arduino library for hall-effect / pulse-output liquid flow sensors.
 
@@ -14,14 +14,14 @@ Arduino library for hall-effect / pulse-output liquid flow sensors.
 ## Installation
 
 Arduino IDE → **Sketch → Include Library → Manage Libraries…** →
-search **FlowSensor** → Install.
+search **FlowSensorLib** → Install.
 Or download the repo and use **Sketch → Include Library → Add .ZIP Library…**
 
 ## Quick start
 
 ```cpp
 
-#include <FlowSensor.h>
+#include <FlowSensorLib.h>
 FlowSensor flow(2, 7.5f);   // pin 2, 7.5 pulses/sec per L/min
 void setup() { Serial.begin(9600); flow.begin(); }
 
