@@ -21,26 +21,14 @@ Or download the repo and use **Sketch → Include Library → Add .ZIP Library�
 
 ```cpp
 
-\\\#include <FlowSensor.h>
-
-
-
+#include <FlowSensor.h>
 FlowSensor flow(2, 7.5f);   // pin 2, 7.5 pulses/sec per L/min
-
-
-
 void setup() { Serial.begin(9600); flow.begin(); }
 
-
-
 void loop() {
-
  if (flow.update()) {
-
 Serial.print(flow.flow(),   2); Serial.print(" L/min  ");
-
 Serial.print(flow.volume(), 3); Serial.println(" L");
-
 }
 
 }
