@@ -1,0 +1,56 @@
+#include "FlowSensor.h"
+
+FlowSensor* FlowSensor::_active = nullptr;
+
+FlowSensor::FlowSensor(uint8_t pin)
+  : _pin(pin),
+    _windowMs(1000), _windowStart(0),
+    _pulseCount(0), _flow(0.0f), _volume(0.0f) {}
+
+bool FlowSensor::begin() {
+  if (_active && _active != this) return false;
+  _active = this;
+  pinMode(_pin, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(_pin), _isr, RISING);
+  _windowStart = millis();
+  return true;
+}
+
+bool FlowSensor::update() {
+  uint32_t now = millis();
+  if ((uint32_t)(now - _windowStart) < _windowMs) return false;
+
+  uint32_t elapsed = now - _windowStart;  // real elapsed, handles millis() wrap
+  _windowStart = now;
+
+  uint32_t count = _readAndReset();
+  float dt_s = elapsed * 0.001f;
+
+  _flow = (count / dt_s) / _cal;      // Hz -> L/min
+  _volume += _flow * (dt_s / 60.0f);  // L/min -> L
+  return true;
+}
+
+void FlowSensor::resetVolume() {
+  _volume = 0.0f;
+}
+void FlowSensor::setWindow(uint32_t ms) {
+  _windowMs = ms;
+}
+void FlowSensor::setCalibration(float k) {
+  _cal = k;
+}
+
+void FlowSensor::_isr() {
+  if (_active) _active->_pulseCount++;
+}
+
+// Disable ONLY this pin's external interrupt during the read/clear.
+// Timer0 (millis), Serial, ADC, etc. keep running.
+uint32_t FlowSensor::_readAndReset() {
+  detachInterrupt(digitalPinToInterrupt(_pin));
+  uint32_t c = _pulseCount;
+  _pulseCount = 0;
+  attachInterrupt(digitalPinToInterrupt(_pin), _isr, RISING);
+  return c;
+}
