@@ -1,5 +1,5 @@
 
-#include "FlowSensor.h"
+#include "FlowSensorLib.h"
 
 FlowSensor flow(2);  // pin 2
 
