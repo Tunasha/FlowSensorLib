@@ -27,8 +27,8 @@ void setup() { Serial.begin(9600); flow.begin(); }
 
 void loop() {
  if (flow.update()) {
-Serial.print(flow.flow(),   2); Serial.print(" L/min  ");
-Serial.print(flow.volume(), 3); Serial.println(" L");
+   Serial.print(flow.flow(),   2); Serial.print(" L/min  ");
+   Serial.print(flow.volume(), 3); Serial.println(" L");
 }
 
 }
