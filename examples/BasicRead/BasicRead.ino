@@ -1,4 +1,7 @@
-
+/*
+This example demostrates how to read data from the flow sensor like the flow rate in L/min and Flow Volume.
+Author: Tunasha, Babatunde Adg
+*/
 #include "FlowSensorLib.h"
 
 FlowSensor flow(2);  // pin 2
