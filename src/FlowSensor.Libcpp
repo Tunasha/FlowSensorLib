@@ -27,7 +27,7 @@ bool FlowSensor::update() {
   float dt_s = elapsed * 0.001f;
 
   _flow = (count / dt_s) / _cal;      // Hz -> L/min
-  _volume += _flow * (dt_sx / 60.0f);  // L/min -> L
+  _volume += _flow * (dt_s / 60.0f);  // L/min -> L
   return true;
 }
 
